@@ -1,0 +1,27 @@
+{
+  "name": "pathway-kit",
+  "private": true,
+  "version": "2026.11.0",
+  "type": "module",
+  "description": "A reusable kit for interactive technology pathways: data-driven archetype pages, custom simulators, sources and a review register.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "shots": "node scripts/shoot.cjs http://localhost:4173/ shots"
+  },
+  "dependencies": {
+    "lucide-react": "1.59.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "@vitejs/plugin-react": "6.1.2",
+    "tailwindcss": "4.3.3",
+    "vite": "8.3.4"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

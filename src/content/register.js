@@ -1,0 +1,72 @@
+// Archetype: register. Update `verified` (YYYY-MM-DD) when you re-check an entry.
+// Product rows were checked on 2026-11-05 against the pages in sources.js; stack rows on 2026-11-01.
+export default {
+  header: {
+    eyebrow: 'Dashboard · Technology register',
+    title: 'What this pathway relies on, its status, and when it was checked',
+    deck: 'Product capabilities and the site’s own stack, each with a status and a review cadence. Move the date forward to see what falls due.',
+  },
+  sources: ['agent365ServiceDescription', 'fabricAiFeatureState', 'purviewDlpCopilot', 'githubPages'],
+  cadence: { Adopt: 180, Hold: 90, Watch: 30, Decide: 30, Retiring: 30 },
+  statusInfo: {
+    Adopt: 'Generally available and supported; build on it.',
+    Hold: 'Preview or beta, or no support statement. Don’t build on it yet.',
+    Watch: 'In use, with a change or a conflict to resolve. Re-check monthly.',
+    Decide: 'A decision still to make.',
+    Retiring: 'Being withdrawn. Plan the exit.',
+  },
+  register: [
+    // Governance
+    { name: 'Microsoft Agent 365: foundational', cat: 'Governance', status: 'Adopt', version: 'GA 2026-05-01', verified: '2026-11-05', note: 'Agent Registry inventory, basic actions and lifecycle rules, included with Microsoft 365 plans.', src: 'agent365ServiceDescription' },
+    { name: 'Microsoft Agent 365: premium', cat: 'Governance', status: 'Adopt', version: 'GA 2026-05-01', verified: '2026-11-05', note: 'Needs an Agent 365 licence or E7; binds to the agent’s sponsor or owner. Registry sync to AWS/Google, Defender runtime blocking and the Graph registry API are preview.', src: 'agent365GaSecurityBlog' },
+    { name: 'Agent 365 foundational line for audit and eDiscovery', cat: 'Governance', status: 'Watch', version: '—', verified: '2026-11-05', note: 'The licensing FAQ and the service description disagree on whether audit and eDiscovery of agent activity need a licence. The site cites the service description.', src: 'agent365LicensingFaq' },
+    { name: 'Agent Requests (org-wide publishing approval)', cat: 'Governance', status: 'Adopt', version: '—', verified: '2026-11-05', note: 'Every agent published to the organisation waits for admin approval in the Microsoft 365 admin center.', src: 'agent365Requests' },
+    { name: 'Power Platform environment routing', cat: 'Governance', status: 'Adopt', version: '—', verified: '2026-11-05', note: 'Tenant setting, off by default; sends makers into managed developer environments.', src: 'ppEnvironmentRouting' },
+    { name: 'Managed Environments and environment groups', cat: 'Governance', status: 'Adopt', version: '—', verified: '2026-11-05', note: 'Every active user then needs a qualifying licence; unlicensed users blocked from February 2027.', src: 'ppManagedEnvironmentLicensing' },
+    { name: 'Unmanaged developer environments', cat: 'Governance', status: 'Retiring', version: '—', verified: '2026-11-05', note: 'No new ones from 2026-11-15; suspended from 2026-12-15. Dataverse for Teams deprecated.', src: 'ppEnvironmentsOverview' },
+    { name: 'Copilot Studio data policies', cat: 'Governance', status: 'Adopt', version: '—', verified: '2026-11-05', note: 'Real-time enforcement; Publish disabled on a violation.', src: 'csDataPolicies' },
+    { name: '“Knowledge sources for agents” rule', cat: 'Governance', status: 'Hold', version: 'Preview', verified: '2026-11-05', note: 'Allow or deny SharePoint, OneDrive, public websites and documents as knowledge. Preview.', src: 'ppKnowledgeSourcesRule' },
+    { name: 'Power Platform inventory and pac resource-query', cat: 'Governance', status: 'Watch', version: 'Inventory GA; agent schema preview', verified: '2026-11-05', note: 'The inventory page is GA; the Copilot Studio agent schema page is marked preview.', src: 'ppInventory' },
+    { name: 'Microsoft Copilot agents usage report', cat: 'Governance', status: 'Hold', version: 'Preview', verified: '2026-11-05', note: 'Reports > Usage > Microsoft Copilot > Agents in the Microsoft 365 admin center.', src: 'copilotAgentsUsageReport' },
+    // Builders
+    { name: 'Agent Builder in Microsoft 365 Copilot', cat: 'Builders', status: 'Adopt', version: 'GA 2024-10 (Copilot), 2025-02 (Copilot Chat)', verified: '2026-11-05', note: 'Declarative agents; sharing controlled by the admin Sharing setting. Skills in Agent Builder are preview.', src: 'agentBuilderOverview' },
+    { name: 'Copilot Studio knowledge sources', cat: 'Builders', status: 'Adopt', version: '—', verified: '2026-11-05', note: 'SharePoint, Dataverse and connector knowledge need user authentication. Real-time connector knowledge is preview.', src: 'csKnowledgeSummary' },
+    { name: 'Copilot Studio tools: connectors, MCP, prompts, agent flows', cat: 'Builders', status: 'Adopt', version: '—', verified: '2026-11-05', note: 'Per-tool authentication: end user (default) or maker-provided.', src: 'csAddTools' },
+    { name: 'Copilot Studio REST API tools', cat: 'Builders', status: 'Hold', version: 'Preview', verified: '2026-11-05', note: 'Tools from an OpenAPI v2 specification.', src: 'csRestApiTools' },
+    { name: 'Copilot Studio event and recurrence triggers', cat: 'Builders', status: 'Adopt', version: '—', verified: '2026-11-05', note: 'Autonomous agents; triggers run only under the maker’s credentials. Wave 4 at Contoso.', src: 'csEventTriggersOverview' },
+    { name: 'Copilot Studio computer use', cat: 'Builders', status: 'Decide', version: 'GA; models vary', verified: '2026-11-05', note: 'Defaults to maker-provided credentials; out of scope for Contoso until a decision is taken.', src: 'csComputerUse' },
+    { name: 'Fabric data agents', cat: 'Builders', status: 'Watch', version: 'GA on concept page; preview on release-status table', verified: '2026-11-05', note: 'Needs F2 or higher; honours RLS and CLS. Status conflicts between two Microsoft pages.', src: 'fabricAiFeatureState' },
+    { name: 'Fabric data agent as a Copilot Studio tool (Fabric IQ Data MCP)', cat: 'Builders', status: 'Adopt', version: 'GA 2026-08', verified: '2026-11-05', note: 'The supported route into Copilot Studio and Microsoft 365 Copilot.', src: 'fabricDataAgentCopilotStudioTool' },
+    { name: 'Fabric data agent as a connected agent in Copilot Studio', cat: 'Builders', status: 'Hold', version: 'Preview', verified: '2026-11-05', note: 'Not supported in Microsoft 365 Copilot; validated only for Teams.', src: 'fabricDataAgentCopilotStudioPreview' },
+    { name: 'Copilot Cowork', cat: 'Builders', status: 'Adopt', version: 'GA 2026-06-16', verified: '2026-11-05', note: 'Needs a Microsoft 365 Copilot licence and a spending policy. App skill, Accounting plugin and some models are Frontier or preview.', src: 'coworkGaBlog' },
+    { name: 'AI Builder credits', cat: 'Builders', status: 'Retiring', version: '—', verified: '2026-11-05', note: 'Add-on sales ended 2025-11-01; no seeded credits on new or renewed licences from 2026-11-01. Copilot Credits replace them.', src: 'aiBuilderEndOfCredits' },
+    // Identity
+    { name: 'Microsoft Entra Agent ID', cat: 'Identity', status: 'Adopt', version: '—', verified: '2026-11-05', note: 'Copilot Studio creates an agent identity for every agent since May 2026. Agent Builder agents have none today.', src: 'csEntraAgentIds' },
+    { name: 'Conditional Access for agents', cat: 'Identity', status: 'Adopt', version: '—', verified: '2026-11-05', note: 'Needs E7, or Agent 365 with Entra ID P1. The “Agent execution environments” condition is preview.', src: 'entraConditionalAccessAgents' },
+    { name: 'Entra ID Protection for agents', cat: 'Identity', status: 'Hold', version: 'Preview', verified: '2026-11-05', note: 'Requires P2 during preview.', src: 'entraIdProtectionAgents' },
+    { name: 'Entra access packages and lifecycle for agents', cat: 'Identity', status: 'Adopt', version: '—', verified: '2026-11-05', note: 'The re-attestation mechanism; Entra access reviews cannot target agent identities.', src: 'entraAgentIdGovernance' },
+    { name: 'Graph beta agentIdentity listing', cat: 'Identity', status: 'Hold', version: 'Beta', verified: '2026-11-05', note: 'GET /beta/servicePrincipals/microsoft.graph.agentIdentity.', src: 'agentIdentityList' },
+    // Purview and Defender
+    { name: 'Purview audit of Copilot and agent interactions', cat: 'Purview', status: 'Adopt', version: '—', verified: '2026-11-05', note: 'RecordType CopilotInteraction with AgentId and AgentName.', src: 'purviewAuditCopilot' },
+    { name: 'Purview DLP for Copilot and Cowork: labelled files and web search', cat: 'Purview', status: 'Adopt', version: '—', verified: '2026-11-05', note: 'Policy location “Microsoft 365 Copilot and Copilot Chat”.', src: 'purviewDlpCopilot' },
+    { name: 'Purview DLP: sensitive-info types in prompts, external email', cat: 'Purview', status: 'Hold', version: 'Preview', verified: '2026-11-05', note: 'Both preview; uploaded files are not scanned.', src: 'purviewDlpCopilot' },
+    { name: 'Purview audit of Fabric data agents', cat: 'Purview', status: 'Hold', version: 'Preview', verified: '2026-11-05', note: 'Backend queries are not captured.', src: 'fabricDataAgentPurviewAudit' },
+    { name: 'Insider Risk “Risky Agents” template', cat: 'Purview', status: 'Hold', version: 'Preview', verified: '2026-11-05', note: 'Covers Copilot Studio and Foundry agents; on by default.', src: 'purviewInsiderRiskTemplates' },
+    { name: 'Defender security for AI agents', cat: 'Purview', status: 'Adopt', version: '—', verified: '2026-11-05', note: 'Delivered through Agent 365 since 2026-07-01; real-time protection for Agent 365 is preview.', src: 'defenderSecurityForAi' },
+    { name: 'Restricted SharePoint Search', cat: 'Purview', status: 'Retiring', version: '—', verified: '2026-11-05', note: 'No new enablement from 2026-07-31. Use Restricted Content Discovery instead.', src: 'spoRestrictedSharePointSearch' },
+    // Licensing
+    { name: 'Microsoft 365 E7', cat: 'Licensing', status: 'Adopt', version: 'GA 2026-05-01', verified: '2026-11-05', note: 'USD 99 list, US, read 2026-11-05. E5 + Copilot + Agent 365 + Entra Suite.', src: 'msSecurityEnterprisePlansPricing' },
+    { name: 'Agent 365 standalone licence', cat: 'Licensing', status: 'Adopt', version: 'GA 2026-05-01', verified: '2026-11-05', note: 'USD 15 list per user per month, annual; per user, not per agent; not in any Copilot bundle.', src: 'agent365ProductPage' },
+    { name: 'Copilot Credits', cat: 'Licensing', status: 'Adopt', version: 'Since 2025-09-01', verified: '2026-11-05', note: 'Pay-as-you-go USD 0.01 per credit; capacity pack USD 200 per 25,000 credits per month.', src: 'msCopilotStudioLicensingGuidance' },
+    // Site stack
+    { name: 'React', cat: 'Front end', status: 'Adopt', version: '19.3.1', verified: '2026-11-01', note: 'UI library for every page.', src: 'react' },
+    { name: 'Vite', cat: 'Front end', status: 'Adopt', version: '8.3.4', verified: '2026-11-01', note: 'Dev server and static build.', src: 'vite' },
+    { name: 'Tailwind CSS', cat: 'Front end', status: 'Adopt', version: '4.3.3', verified: '2026-11-01', note: 'Styling through @tailwindcss/vite; design tokens live in src/index.css.', src: 'tailwind' },
+    { name: '@vitejs/plugin-react', cat: 'Front end', status: 'Adopt', version: '6.1.2', verified: '2026-11-01', note: 'React support for Vite.', src: 'vite' },
+    { name: 'Lucide icons', cat: 'Front end', status: 'Adopt', version: '1.59.0', verified: '2026-11-01', note: 'Icons, imported one by one.', src: 'lucide' },
+    { name: 'Node.js 22', cat: 'Build', status: 'Watch', version: '22 LTS', verified: '2026-11-01', note: 'Build runtime in the workflow; check when the next LTS line becomes active.', src: 'nodeReleases' },
+    { name: 'actions/checkout', cat: 'Publishing', status: 'Adopt', version: 'v7', verified: '2026-11-01', note: 'Latest major when checked.', src: 'checkout' },
+    { name: 'actions/deploy-pages', cat: 'Publishing', status: 'Adopt', version: 'v5', verified: '2026-11-01', note: 'With configure-pages v6 and upload-pages-artifact v5.', src: 'deployPages' },
+    { name: 'GitHub Pages via Actions', cat: 'Publishing', status: 'Adopt', version: '—', verified: '2026-11-01', note: 'Settings → Pages → Source: GitHub Actions.', src: 'githubPages' },
+  ],
+};

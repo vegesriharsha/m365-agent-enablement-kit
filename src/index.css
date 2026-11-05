@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+/* Quiet Boardroom tokens. Light values on :root; dark values redefine the same
+   tokens for the OS dark setting (unless light is forced) and for an explicit
+   data-theme="dark". Components only ever use these tokens. */
+:root {
+  --paper: #faf8f3;
+  --surface: #ffffff;
+  --ink: #15171c;
+  --muted: #44474e;
+  --subtle: #767982;
+  --navy: #1f3a5f;
+  --navy-soft: #e3e9f1;
+  --gold: #b08a3e;
+  --gold-soft: #f3ead6;
+  --rule: #d6d2c8;
+  --faint: #e8e4d8;
+  --callout: #f0ece2;
+  --good: #3d7350;
+  --good-soft: #e1eee4;
+  --bad: #a8432f;
+  --bad-soft: #f5e1db;
+  --on-navy: #faf8f3;
+  --seq-1: #1f3a5f;
+  --seq-2: #4a72a3;
+  --seq-3: #8aa6c9;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121418;
+    --surface: #181b20;
+    --ink: #ece9e1;
+    --muted: #bdb9b0;
+    --subtle: #8d9098;
+    --navy: #8fb2dc;
+    --navy-soft: #1c2735;
+    --gold: #d4af66;
+    --gold-soft: #2b2518;
+    --rule: #34373e;
+    --faint: #24272d;
+    --callout: #1d2025;
+    --good: #84c597;
+    --good-soft: #1b2a20;
+    --bad: #e6907b;
+    --bad-soft: #321d18;
+    --on-navy: #121418;
+    --seq-1: #d6e2f1;
+    --seq-2: #8fb2dc;
+    --seq-3: #527aa8;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #121418;
+  --surface: #181b20;
+  --ink: #ece9e1;
+  --muted: #bdb9b0;
+  --subtle: #8d9098;
+  --navy: #8fb2dc;
+  --navy-soft: #1c2735;
+  --gold: #d4af66;
+  --gold-soft: #2b2518;
+  --rule: #34373e;
+  --faint: #24272d;
+  --callout: #1d2025;
+  --good: #84c597;
+  --good-soft: #1b2a20;
+  --bad: #e6907b;
+  --bad-soft: #321d18;
+  --on-navy: #121418;
+  --seq-1: #d6e2f1;
+  --seq-2: #8fb2dc;
+  --seq-3: #527aa8;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-rule: var(--rule);
+  --color-faint: var(--faint);
+  --color-callout: var(--callout);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --color-on-navy: var(--on-navy);
+  --font-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius-xs: 2px;
+  --radius-sm: 2px;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+@layer components {
+  .gutter {
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+}
+
+/* Paint the phone's top safe-area band behind the sticky bar */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 30;
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--gold-soft);
+}
+
+/* Eyebrow / label scale from the house style */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--navy);
+}
+.label {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--subtle);
+}
+.h2 {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Range input in house colours */
+input[type="range"] {
+  accent-color: var(--navy);
+}
+
+/* SVG text inherits the body face unless told otherwise */
+svg text {
+  font-family: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes fadein {
+  from { opacity: 0.35; transform: translateY(2px); }
+  to { opacity: 1; transform: none; }
+}
+.fade-in {
+  animation: fadein 0.35s ease-out both;
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: -24; }
+}
+.flowing {
+  stroke-dasharray: 6 6;
+  animation: dash 0.9s linear infinite;
+}
