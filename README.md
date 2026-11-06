@@ -50,6 +50,9 @@ Push to `main` on GitHub, then in Settings → Pages set **Source** to **GitHub 
 
 | Date | Change |
 | --- | --- |
+| 6 Nov 2026 | Independent fact-check applied: about thirty statements reworded or re-cited, fourteen moved source URLs updated, verified date set to 6 Nov 2026 |
+| 6 Nov 2026 | Added four custom simulators: Agent 365 licence, identity on the path, environment strategy, E5 to E7; adapted the risk tier simulator |
+| 5 Nov 2026 | Built the agents-in-Microsoft-365 pathway for Contoso Bank: spec, 212 sources, nine archetype pages and the register |
 | 4 Nov 2026 | Added prompts 06–15 for learning, testing, deciding and challenging, and the prompts index |
 | 4 Nov 2026 | Added the tech-stack rules for coding agents to CLAUDE.md |
 | 4 Nov 2026 | Added the concept-visualization prompt, the visual patterns catalogue and reference simulators |
