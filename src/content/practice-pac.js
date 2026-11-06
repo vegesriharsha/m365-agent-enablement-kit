@@ -3,8 +3,8 @@
 export default {
   header: {
     eyebrow: 'Practice · Power Platform CLI',
-    title: 'The CLI is the only scripted way to list Copilot Studio agents',
-    deck: 'Seven read-only levels with pac, plus one preview query. Install pac as a .NET tool, the VS Code extension or the Windows MSI.',
+    title: 'pac copilot list is the supported way to list Copilot Studio agents per environment',
+    deck: 'Seven read-only levels with pac, plus one preview query for the tenant-wide inventory. Install pac as a .NET tool, the VS Code extension or the Windows MSI.',
   },
   sources: ['pacIntroduction', 'pacAuth', 'pacAdmin', 'pacEnv', 'pacCopilot', 'pacSolution', 'pacResourceQuery', 'ppInventory', 'csAgentInventory'],
   prompt: '$',
@@ -26,12 +26,12 @@ export default {
       task: 'Show the identity and environment of the active auth profile.',
       accept: ['pac auth who'],
       hints: ['Same verb group.', 'It answers the question “who am I?”.', 'pac auth who'],
-      explain: 'pac auth who prints the signed-in user, tenant and environment for the active profile.',
+      explain: 'pac auth who displays information about the currently selected authentication profile.',
     },
     {
       id: 'admin-list',
       title: 'List every environment as an admin',
-      lesson: 'The admin group needs a tenant admin role and sees every environment. The output has Environment, Environment Id, Environment Url, Type and Organization Id.',
+      lesson: 'The admin group lists every environment in the tenant. The output has Environment, Environment Id, Environment Url, Type and Organization Id.',
       task: 'List all environments in the tenant.',
       accept: ['pac admin list( --?\\S+( \\S+)?)*'],
       near: [{ match: '^pac env list', say: 'That lists environments you can see as a user. The admin group lists all of them.' }],
@@ -41,7 +41,7 @@ export default {
     {
       id: 'env-list',
       title: 'List the environments you can see',
-      lesson: 'The env group works without an admin role and lists the environments the signed-in user has access to.',
+      lesson: 'The env group lists all Dataverse environments from the Global Discovery Service, as the signed-in user sees them.',
       task: 'List the environments visible to the current user.',
       accept: ['pac env list( --?\\S+( \\S+)?)*'],
       hints: ['The verb group is pac env.', 'List them.', 'pac env list'],
@@ -50,10 +50,10 @@ export default {
     {
       id: 'copilot-list',
       title: 'List Copilot Studio agents in one environment',
-      lesson: 'There is no PowerShell cmdlet for this. pac copilot list returns Name, Bot ID, Component State, Is Managed, Solution ID, Status Code and State Code for the agents in one environment.',
+      lesson: 'The admin PowerShell module has no cmdlet for this, and the tenant-wide routes (Power Platform API, the admin connector, Azure Resource Graph) are partly preview. pac copilot list returns Name, Bot ID, Component State, Is Managed, Solution ID, Status Code and State Code for the agents in one environment.',
       task: 'List the Copilot Studio agents in the environment with id 11111111-2222-3333-4444-555555555555.',
       accept: ['pac copilot list (--environment|-env) \\S+( --?\\S+( \\S+)?)*'],
-      near: [{ match: '^pac copilot list$', say: 'It lists one environment at a time; name it with --environment <id>.' }],
+      near: [{ match: '^pac copilot list$', say: 'Without --environment it uses the active profile’s environment; this task names one.' }],
       hints: ['The verb group is pac copilot.', 'It needs the environment id.', 'pac copilot list --environment <id>'],
       explain: 'pac copilot list --environment 11111111-2222-3333-4444-555555555555 lists the agents in that environment. Loop over the ids from pac admin list to cover the tenant.',
     },
@@ -78,7 +78,7 @@ export default {
     {
       id: 'resource-query',
       title: 'Preview: query the tenant-wide inventory',
-      lesson: 'Preview feature, not for production scripts. The Power Platform inventory API lists agents across environments. pac resource-query runs a query body from a file; the table is PowerPlatformResources and the type is microsoft.copilotstudio/agents.',
+      lesson: 'Preview feature, not for production scripts. The Power Platform inventory API lists agents across environments. pac resource-query runs a query body given inline or from a file with @; the body names the resource type microsoft.copilotstudio/agents.',
       task: 'Run an inventory query from the file query.json.',
       accept: ['pac resource-query query-resources --body @\\S+'],
       near: [{ match: '^pac resource-query query-resources$', say: 'It needs the query body: --body @<file.json>.' }],

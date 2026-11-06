@@ -4,40 +4,66 @@ import { Section, Insight, Segmented, Pill, Callout, Illustrative } from '../com
 import PageShell from '../components/PageShell.jsx';
 
 /*
- * A custom page: an idea that needs its own simulator gets its own component.
- * Copy this file as a starting point, then register it in src/content/registry.js
- * with `component: YourPage` instead of an archetype.
+ * Contoso's agent risk tiering. The factors follow documented product behaviour
+ * (who the agent runs as, what it can reach); the weights, thresholds and
+ * cadences are Contoso's and are labelled illustrative.
  */
 const factors = [
-  { id: 'reach', label: 'Who can use it', options: [['me', 'Just the maker', 0], ['team', 'A team', 1], ['org', 'Whole organisation', 2], ['ext', 'External users', 3]] },
+  { id: 'reach', label: 'Who can use it', options: [['me', 'Just the maker', 0], ['team', 'A team', 1], ['org', 'Whole organisation', 2]] },
   { id: 'data', label: 'Most sensitive data it reads', options: [['public', 'Public', 0], ['internal', 'Internal', 1], ['conf', 'Confidential', 2], ['restricted', 'Restricted', 3]] },
-  { id: 'act', label: 'What it can do', options: [['answer', 'Answers only', 0], ['draft', 'Drafts for a person', 1], ['act', 'Writes to systems', 3]] },
-  { id: 'auto', label: 'How it runs', options: [['ask', 'When asked', 0], ['trigger', 'On a trigger or schedule', 2]] },
+  { id: 'where', label: 'Where the knowledge lives', options: [['m365', 'Microsoft 365, user permissions', 0], ['fabric', 'Fabric, row-level security', 1], ['system', 'A system through a connector', 2]] },
+  { id: 'act', label: 'What it can do', options: [['answer', 'Answers only', 0], ['draft', 'Drafts for a person', 1], ['act', 'Acts through a connector', 3]] },
+  { id: 'run', label: 'How it runs', options: [['ask', 'When asked', 0], ['trigger', 'On a trigger, as the maker', 3]] },
 ];
 
 const tiers = [
-  { max: 2, name: 'Low', tone: 'good', reviews: ['Intake record', 'Registration in the agent registry'], approver: 'Platform team', access: 'Annual', logs: 'Default activity logs' },
-  { max: 5, name: 'Medium', tone: 'gold', reviews: ['Intake record', 'Registration in the agent registry', 'Risk review', 'Data owner sign-off'], approver: 'Business owner and platform lead', access: 'Twice a year', logs: 'Activity logs retained to the evidence schedule' },
-  { max: 99, name: 'High', tone: 'bad', reviews: ['Intake record', 'Registration in the agent registry', 'Risk review', 'Data owner sign-off', 'Security review', 'Testing evidence before release'], approver: 'Risk committee', access: 'Quarterly', logs: 'Full activity and action logs, monitored with alerts' },
+  {
+    max: 2,
+    name: 'Low',
+    tone: 'good',
+    reviews: ['Intake record', 'Licensed sponsor and Agent Registry entry'],
+    approver: 'Platform team',
+    attest: 'Yearly sponsor attestation',
+    logs: 'Purview audit of Copilot interactions',
+  },
+  {
+    max: 6,
+    name: 'Medium',
+    tone: 'gold',
+    reviews: ['Intake record', 'Licensed sponsor and Agent Registry entry', 'Risk review', 'Data owner sign-off'],
+    approver: 'Business owner and platform lead',
+    attest: 'Sponsor attestation twice a year',
+    logs: 'Audit retained to the evidence schedule; usage reviewed monthly',
+  },
+  {
+    max: 99,
+    name: 'High',
+    tone: 'bad',
+    reviews: ['Intake record', 'Licensed sponsor and Agent Registry entry', 'Risk review', 'Data owner sign-off', 'Security review', 'Testing evidence before release', 'Maker-credential decision recorded'],
+    approver: 'Risk committee',
+    attest: 'Quarterly access-package expiry',
+    logs: 'Full audit and action logs; Defender agent protection on',
+  },
 ];
 
 export default function RiskTier() {
-  const [v, setV] = useState({ reach: 'team', data: 'internal', act: 'answer', auto: 'ask' });
+  const [v, setV] = useState({ reach: 'team', data: 'internal', where: 'm365', act: 'answer', run: 'ask' });
   const score = factors.reduce((n, f) => n + f.options.find((o) => o.at(0) === v[f.id]).at(2), 0);
   const tier = tiers.find((t) => score <= t.max);
 
   return (
     <PageShell
       header={{
-        eyebrow: 'Custom page · Simulator',
-        title: 'Tier the risk before you review it',
-        deck: 'Describe an agent in four answers and see its tier, the reviews it needs and who approves it. A template for building your own simulators.',
+        eyebrow: 'Custom page · Risk tier simulator',
+        title: 'Tier the agent before you review it',
+        deck: 'Describe an agent in five answers and see its tier, the reviews it needs, who approves it and how often its access is re-attested.',
         meta: [{ dt: 'Factors', dd: String(factors.length) }, { dt: 'Tiers', dd: String(tiers.length) }],
       }}
+      sources={['csEventTriggersOverview', 'csToolAuthentication', 'csMakerCredentials', 'agent365LicensingFaq', 'entraAgentIdBestPractices', 'purviewAuditCopilot', 'defenderSecurityForAi']}
     >
-      <Section n={1} title="Describe the agent" intro="The weights are illustrative; your risk framework sets the real ones.">
+      <Section n={1} title="Describe the agent" intro="The factors follow how the products work; the weights, thresholds and cadences are Contoso’s own.">
         <div className="mb-3">
-          <Illustrative>Illustrative weights</Illustrative>
+          <Illustrative>Illustrative weights, tiers and cadences</Illustrative>
         </div>
         <div className="grid gap-x-8 gap-y-5 md:grid-cols-2">
           {factors.map((f) => (
@@ -64,7 +90,7 @@ export default function RiskTier() {
             <dl className="mt-4 grid gap-3 border-t border-faint pt-3 sm:grid-cols-3">
               {[
                 ['Approves', tier.approver],
-                ['Access review', tier.access],
+                ['Re-attestation', tier.attest],
                 ['Evidence', tier.logs],
               ].map(([dt, dd]) => (
                 <div key={dt}>
@@ -76,17 +102,19 @@ export default function RiskTier() {
           </div>
         </div>
         <div className="mt-4">
-          <Insight stateKey={`${tier.name}-${score}`} tone={tier.tone === 'bad' ? 'bad' : tier.tone === 'gold' ? 'gold' : 'navy'}>
+          <Insight stateKey={`${tier.name}-${score}-${v.run}-${v.act}-${v.where}`} tone={tier.tone === 'bad' ? 'bad' : tier.tone === 'gold' ? 'gold' : 'navy'}>
             <p>
-              {v.act === 'act' && 'Writing to systems is the biggest jump in risk: the agent acts with someone’s permissions, so its identity and access rules matter most. '}
-              {v.auto === 'trigger' && 'Running without a person asking means nobody reviews each result; monitoring and escalation have to do that job. '}
-              {v.act !== 'act' && v.auto !== 'trigger' && 'An agent that only answers when asked is the easiest place to start: most of the risk is in what data it can read.'}
+              {v.run === 'trigger' && 'A trigger runs the agent under the maker’s credentials, with nobody reviewing each run. The maker-credential decision and monitoring do the job a person would. '}
+              {v.act === 'act' && 'Acting through a connector is the biggest jump: the agent changes a system with someone’s permissions, so which identity it uses matters most. '}
+              {v.where === 'system' && v.act !== 'act' && 'Reading a business system through a connector means the connection’s identity, not the user’s, may decide what comes back. Prefer user authentication. '}
+              {v.where === 'fabric' && 'A Fabric data agent honours row- and column-level security, so the data owner’s security model is the control to review. '}
+              {v.run !== 'trigger' && v.act !== 'act' && v.where === 'm365' && 'An agent that answers when asked, from Microsoft 365 content, runs as the user and never widens their access. Most of the risk is in what the user can already see.'}
             </p>
           </Insight>
         </div>
         <div className="mt-5">
-          <Callout tone="gold" title="Make it yours">
-            Replace the factors and tiers with the ones your risk team approves, and link each review to the standard that defines it.
+          <Callout tone="gold" title="Tiers change the reviews, not the registration">
+            Every agent, even Low, has a licensed sponsor and a registry entry before anyone uses it. The tier adds reviews, a stricter approver and a shorter re-attestation cadence.
           </Callout>
         </div>
       </Section>

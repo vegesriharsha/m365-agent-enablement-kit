@@ -6,14 +6,14 @@ export default {
     title: 'Pick the builder from the need, not from the tool you know',
     deck: 'Four in-scope ways to build an agent at Contoso. Answer four questions and see which one fits and why. Pro-code agents (Foundry, custom frameworks) are out of scope for now.',
   },
-  sources: ['agentBuilderVsStudio', 'agentBuilderOverview', 'agentBuilderKnowledge', 'agentBuilderShare', 'csAddTools', 'csAgentFlowsOverview', 'csBillingRates', 'fabricDataAgentConcept', 'fabricDataAgentSharing', 'fabricDataAgentCopilotStudioTool', 'agent365Requests', 'csEventTriggersOverview'],
+  sources: ['agentBuilderVsStudio', 'agentBuilderOverview', 'agentBuilderKnowledge', 'agentBuilderShare', 'agentBuilderOrgCatalog', 'csAddTools', 'csAgentFlowsOverview', 'csBillingRates', 'fabricDataAgentConcept', 'fabricDataAgentSharing', 'fabricDataAgentCopilotStudioTool', 'agent365Requests', 'csEventTriggersOverview'],
   sectionTitle: 'Which builder fits this need',
   maxScore: 12,
   options: [
     { id: 'ab', name: 'Agent Builder', blurb: 'Inside Microsoft 365 Copilot. Instructions, web and Microsoft 365 knowledge; no external actions.' },
     { id: 'cs', name: 'Copilot Studio', blurb: 'In a Power Platform environment. Knowledge, tools, connectors, flows, triggers and channels.' },
     { id: 'fab', name: 'Fabric data agent', blurb: 'In Microsoft Fabric. Read-only questions over lakehouses, warehouses and semantic models.' },
-    { id: 'flow', name: 'Agent flow', blurb: 'In Copilot Studio. A deterministic trigger and actions, billed per action.' },
+    { id: 'flow', name: 'Agent flow', blurb: 'In Copilot Studio. A deterministic trigger and actions, billed in Copilot Credits per 100 actions.' },
   ],
   questions: [
     {
@@ -60,7 +60,7 @@ export default {
   verdicts: {
     ab: 'Build it in Copilot and keep sharing to named people. If it ever needs an action, copy it to Copilot Studio and treat the copy as a new agent: the copy is a snapshot, not a sync.',
     cs: 'Build it in a routed developer environment with user authentication, then promote through a solution. Publishing to everyone goes through Agent Requests in the Microsoft 365 admin center.',
-    fab: 'Needs an F2 capacity or higher and the Fabric tenant settings on. Consumers need read access to the sources; sharing the agent grants nothing. Reach Copilot Studio through the Fabric IQ Data MCP tool.',
-    flow: 'Build it as an agent flow in Copilot Studio. Each action is billed in Copilot Credits, and runs stop when the environment has no credits left.',
+    fab: 'Needs a paid F2 or higher Fabric capacity, or a P1 or higher Power BI Premium capacity with Fabric enabled, and the Fabric tenant settings on. Consumers need read access to the sources; sharing the agent grants nothing. Reach Copilot Studio through the Fabric IQ Data MCP tool, which needs a Microsoft 365 Copilot licence.',
+    flow: 'Build it as an agent flow in Copilot Studio. Actions are billed in Copilot Credits per 100 actions, with no charge for Copilot-licensed users when an agent calls the flow. New runs are blocked when the environment has no credits left; runs in progress finish.',
   },
 };

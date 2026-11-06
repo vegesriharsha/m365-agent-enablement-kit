@@ -7,7 +7,7 @@ export default {
     deck: 'Contoso opens agents in the order its standards can support. Each phase ends when its gate is met, not when a date arrives.',
     meta: [{ dt: 'Pilot', dd: '25 Agent 365 licences' }],
   },
-  sources: ['ppEnvironmentsOverview', 'ppEnvironmentRouting', 'agent365Registry', 'agent365LicensingFaq', 'ppManagedEnvironmentLicensing', 'agent365Settings', 'coworkAdminGovernance'],
+  sources: ['ppEnvironmentsOverview', 'ppEnvironmentRouting', 'agent365Registry', 'agent365LicensingFaq', 'ppManagedEnvironmentLicensing', 'agent365Settings', 'agentBuilderShare', 'ppTenantSettings', 'csMakerCredentials', 'coworkAdminGovernance'],
   sectionTitle: 'The roadmap',
   phases: [
     {
@@ -22,7 +22,7 @@ export default {
         'Existing agents inventoried from the Agent Registry and the Power Platform inventory',
         'The 25 Agent 365 sponsors named, with the reason each one is in the pilot',
         'Default environment secured and environment routing switched on',
-        'Agent Builder “User access” and the Copilot Studio authors group restricted until wave 1',
+        '“User access” (Agents > Settings) and the “Copilot Studio authors” tenant setting limited to the pilot group until wave 1',
         'Platform owner and decision forum named',
       ],
       explore: ['sequencer', 'domains', 'register'],
@@ -39,7 +39,7 @@ export default {
         'Every pilot agent has a licensed sponsor and appears in the Agent Registry before use',
         'Business and technical owner recorded per agent',
         'Purview audit of Copilot interactions confirmed on',
-        'Sharing setting for Agent Builder left at “No users” until wave 2',
+        'Org-wide sharing for Agent Builder held at “No users” until wave 2; sharing with named people stays possible, so creator-only use is a rule makers follow',
       ],
       explore: ['which-builder', 'lifecycle'],
     },
@@ -85,7 +85,7 @@ export default {
       criteria: [
         'Boundaries for autonomous use written down',
         'Spend limits set: Copilot credit spending policies and per-agent limits',
-        'Maker-credential decision recorded in Power Platform admin center > Features > “Control maker credential options”',
+        'Maker-credential decision recorded per environment or group: Settings > Features > “Control maker credential options”; disabling it makes triggered agents fail',
         'Continuous evaluation of behaviour in place',
         'Cowork data loss prevention test completed and its preview parts held',
       ],

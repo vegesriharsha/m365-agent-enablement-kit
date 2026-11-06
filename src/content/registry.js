@@ -11,6 +11,10 @@ import practicePac from './practice-pac.js';
 import practiceGraph from './practice-graph.js';
 import register from './register.js';
 import RiskTier from '../pages/RiskTier.jsx';
+import Agent365Licence from '../pages/Agent365Licence.jsx';
+import WhoseIdentity from '../pages/WhoseIdentity.jsx';
+import Environments from '../pages/Environments.jsx';
+import E5ToE7 from '../pages/E5ToE7.jsx';
 
 export const groups = [
   {
@@ -34,6 +38,10 @@ export const groups = [
     pages: [
       { id: 'which-builder', title: 'Which builder?', kind: 'Decision', archetype: 'decision', data: decision, blurb: 'Agent Builder, Copilot Studio, a Fabric data agent or an agent flow: four questions and a ranked answer.' },
       { id: 'risk-tier', title: 'Risk tier simulator', kind: 'Custom simulator', component: RiskTier, blurb: 'Describe an agent and see its tier, the reviews it needs and who approves it.' },
+      { id: 'agent365-licence', title: 'Who needs an Agent 365 licence', kind: 'Custom simulator', component: Agent365Licence, blurb: 'Move an agent between sponsors and watch its premium protections follow the licence, not the agent.' },
+      { id: 'whose-identity', title: 'Whose identity does the agent use?', kind: 'Custom simulator', component: WhoseIdentity, blurb: 'Send a request through six kinds of agent and see where the identity check stops it, or does not.' },
+      { id: 'environments', title: 'Environment strategy', kind: 'Custom simulator', component: Environments, blurb: 'Sort makers’ work into four environments, then stress-test the layout with the dates that are coming.' },
+      { id: 'e5-to-e7', title: 'E5 to E7', kind: 'Custom simulator', component: E5ToE7, blurb: 'Monthly list cost of each licence shape against a budget line, and the waves each one opens.' },
     ],
   },
   {
