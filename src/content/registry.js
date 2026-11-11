@@ -54,7 +54,7 @@ export const groups = [
     name: 'Practice',
     pages: [
       { id: 'practice-powershell', title: 'PowerShell practice', kind: 'Practice', archetype: 'practice', data: practicePowershell, blurb: 'Nine read-only inventory and audit commands, typed until they stick.' },
-      { id: 'practice-pac', title: 'Power Platform CLI practice', kind: 'Practice', archetype: 'practice', data: practicePac, blurb: 'The only scripted way to list Copilot Studio agents, in seven levels.' },
+      { id: 'practice-pac', title: 'Power Platform CLI practice', kind: 'Practice', archetype: 'practice', data: practicePac, blurb: 'List environments, data policies and the Copilot Studio agents in each environment: seven levels and one preview query.' },
       { id: 'practice-graph', title: 'Graph practice', kind: 'Practice', archetype: 'practice', data: practiceGraph, blurb: 'Six Microsoft Graph requests for agents, usage and audit, with the permission each needs.' },
     ],
   },
