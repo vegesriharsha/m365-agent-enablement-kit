@@ -27,12 +27,13 @@ dated source in `src/content/sources.js`; "GA" means the page carried no preview
 
 ## 3. Hosting
 
-- [x] **Private while testing.** Git repository initialised on `main`, no remote yet. Run locally (`npm run dev`); no
-  GitHub Pages. Keep `.github/workflows/deploy.yml`; it only runs on a push to `main`.
-- [ ] **Public** (GitHub Pages): fictional Contoso Bank only, generic content.
+- [x] **Public** (GitHub Pages): fictional Contoso Bank only, generic content. Published on 11 Nov 2026 from the
+  public repository `vegesriharsha/m365-agent-enablement-kit`; `.github/workflows/deploy.yml` deploys on every push
+  to `main`.
 - [ ] **Internal**: real names allowed; host the organisation approves.
 
-Decide public or internal before the first publish. Fictional organisation: Contoso Bank.
+Decided public on 11 Nov 2026. Fictional organisation: Contoso Bank. Real-organisation context stays in `notes/`,
+which is git-ignored and never pushed.
 
 ## 4. Capabilities in scope
 
