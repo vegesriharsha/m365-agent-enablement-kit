@@ -15,6 +15,7 @@ import Agent365Licence from '../pages/Agent365Licence.jsx';
 import WhoseIdentity from '../pages/WhoseIdentity.jsx';
 import Environments from '../pages/Environments.jsx';
 import E5ToE7 from '../pages/E5ToE7.jsx';
+import DiagramGallery from '../pages/DiagramGallery.jsx';
 
 export const groups = [
   {
@@ -23,6 +24,7 @@ export const groups = [
       { id: 'home', title: 'Overview', kind: 'Index', archetype: 'home' },
       { id: 'journey', title: 'Adoption journey', kind: 'Stepper', archetype: 'journey', data: journey, blurb: 'Six phases from preparation to scale, each closed by a gate you can tick.' },
       { id: 'glossary', title: 'Glossary', kind: 'Explorer', archetype: 'glossary', data: glossary, blurb: 'Every agent type and governance word in plain language, with a bank analogy you can switch on.' },
+      { id: 'diagrams', title: 'Glossary diagrams', kind: 'Gallery', component: DiagramGallery, blurb: 'Three ideas drawn instead of described: agent identity, connector groups and the Agent 365 layers.' },
     ],
   },
   {

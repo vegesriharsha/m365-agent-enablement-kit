@@ -8,9 +8,20 @@ const fs = require('fs');
 
 const radio = (name) => async (page) => page.getByRole('radio', { name, exact: true }).click();
 const toggle = (name) => async (page) => page.getByRole('switch', { name }).click();
+const press = (name) => async (page) => page.getByRole('button', { name }).first().click();
 
-// page id -> states; each state is a list of actions applied in order to a fresh page.
+// page id -> states; each state is a list of actions applied in order to a fresh page,
+// or { nth, actions } to check the nth diagram on a page that has several.
 const plan = {
+  diagrams: {
+    'identity-default': { nth: 0, actions: [] },
+    'identity-sponsor': { nth: 0, actions: [press(/^Sponsor:/)] },
+    'connectors-step-1': { nth: 1, actions: [] },
+    'connectors-step-3': { nth: 1, actions: [press('Next step'), press('Next step')] },
+    'layers-default': { nth: 2, actions: [] },
+    'layers-disputed': { nth: 2, actions: [press(/^Sources disagree:/)] },
+  },
+  glossary: { 'identity-diagram-open': [press('Show diagram')] },
   domains: { default: [] },
   lifecycle: { normal: [], 'changed-after-approval': [radio('Changed after approval')] },
   'agent365-licence': {
@@ -69,12 +80,13 @@ const measure = (el) => {
     const ctx = await browser.newContext({ viewport: { width, height: 900 }, colorScheme: width === 390 ? 'dark' : 'light', deviceScaleFactor: 2 });
     const page = await ctx.newPage();
     for (const [id, states] of Object.entries(plan)) {
-      for (const [state, actions] of Object.entries(states)) {
+      for (const [state, def] of Object.entries(states)) {
+        const { nth = 0, actions } = Array.isArray(def) ? { actions: def } : def;
         await page.goto(`${base}#${id}`, { waitUntil: 'networkidle' });
         await page.reload({ waitUntil: 'networkidle' });
         for (const act of actions) await act(page);
         await page.waitForTimeout(id === 'lifecycle' ? 5600 : 2600);
-        const svg = page.locator('article svg[role="img"]').first();
+        const svg = page.locator('article svg[role="img"]').nth(nth);
         const m = await svg.evaluate(measure);
         await svg.scrollIntoViewIfNeeded();
         await svg.screenshot({ path: `${out}/${id}--${state}--${width}.png` });

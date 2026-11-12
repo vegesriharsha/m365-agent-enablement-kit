@@ -1,12 +1,18 @@
 import { useMemo, useState } from 'react';
-import { ArrowRight, Eye, Search } from 'lucide-react';
+import { ArrowRight, Eye, Network, Search } from 'lucide-react';
 import { Section, Segmented, Toggle, Insight, Pill } from '../components/ui.jsx';
 import PageShell from '../components/PageShell.jsx';
+import GlossaryDiagram from '../diagrams/GlossaryDiagram.jsx';
 import { pageById } from '../content/registry.js';
 
-/** Searchable terms with an optional analogy and a test-yourself mode. */
+/**
+ * Searchable terms with an optional analogy and a test-yourself mode.
+ * A term can name a `diagram` from `data.diagrams`; its card then offers to
+ * show it and widens to the full row while the diagram is open.
+ */
 export default function Glossary({ data }) {
-  const { terms, analogyLabel = 'Analogy' } = data;
+  const { terms, analogyLabel = 'Analogy', diagrams = {} } = data;
+  const [open, setOpen] = useState(null);
   const cats = ['All', ...Array.from(new Set(terms.map((t) => t.cat)))];
   const [q, setQ] = useState('');
   const [cat, setCat] = useState('All');
@@ -59,11 +65,13 @@ export default function Glossary({ data }) {
             </Insight>
           </div>
         )}
-        <ul className="mt-6 grid gap-px border border-rule bg-rule md:grid-cols-2">
+        <ul className="mt-6 grid grid-flow-row-dense gap-px border border-rule bg-rule md:grid-cols-2">
           {items.map((g) => {
             const hidden = quiz && !revealed[g.term];
+            const spec = g.diagram ? diagrams[g.diagram] : null;
+            const showing = spec && open === g.term && !hidden;
             return (
-              <li key={g.term} className="bg-paper">
+              <li key={g.term} className={`min-w-0 bg-paper ${showing ? 'md:col-span-2' : ''}`}>
                 <div className="flex h-full flex-col gap-2 p-5">
                   <div className="flex items-start justify-between gap-3">
                     <h3 className="font-display text-[21px] font-semibold leading-[1.15] text-ink">{g.term}</h3>
@@ -83,6 +91,21 @@ export default function Glossary({ data }) {
                       {analogy && g.analogy && <p className="text-[13.5px] italic leading-[1.5] text-muted">{g.analogy}</p>}
                     </>
                   )}
+                  {spec && !hidden && (
+                    <button
+                      type="button"
+                      aria-expanded={showing}
+                      onClick={() => setOpen(showing ? null : g.term)}
+                      className="inline-flex items-center gap-1.5 self-start border border-rule px-2.5 py-1 text-[13px] text-navy hover:border-navy"
+                    >
+                      <Network size={13} /> {showing ? 'Hide diagram' : 'Show diagram'}
+                    </button>
+                  )}
+                  {showing && (
+                    <div className="fade-in mt-1 border-t border-faint pt-4">
+                      <GlossaryDiagram spec={spec} />
+                    </div>
+                  )}
                   {g.page && pageById[g.page] && (
                     <a href={`#${g.page}`} className="mt-auto inline-flex items-center gap-1 pt-1 text-[13px] text-navy hover:underline">
                       Explore: {pageById[g.page].title} <ArrowRight size={12} />
@@ -92,7 +115,8 @@ export default function Glossary({ data }) {
               </li>
             );
           })}
-          {items.length % 2 === 1 && <li className="hidden bg-paper md:block" aria-hidden="true" />}
+          {/* a card widened by its diagram takes two cells, so it changes whether the last row needs a filler */}
+          {(items.length + (items.some((g) => g.diagram && diagrams[g.diagram] && open === g.term && !(quiz && !revealed[g.term])) ? 1 : 0)) % 2 === 1 && <li className="hidden bg-paper md:block" aria-hidden="true" />}
         </ul>
         {items.length === 0 && <p className="mt-6 text-[14px] text-muted">No terms match “{q}”. Try a shorter word.</p>}
       </Section>

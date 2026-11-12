@@ -63,7 +63,7 @@ export default function Explorer({ data }) {
                     style={{ transition: 'fill .25s' }}
                   />
                   {/* sized so labels stay at 11px or more when the wheel shrinks to phone width */}
-                  <text x={w.lx} y={w.ly - 7} textAnchor="middle" fontSize="13" fontFamily="var(--font-mono)" fill={on ? 'var(--on-navy)' : 'var(--navy)'}>
+                  <text x={w.lx} y={w.ly - 7} textAnchor="middle" fontSize="13" style={{ fontFamily: 'var(--font-mono)' }} fill={on ? 'var(--on-navy)' : 'var(--navy)'}>
                     {i + 1}
                   </text>
                   <text x={w.lx} y={w.ly + 11} textAnchor="middle" fontSize="13.5" fontWeight="500" fill={on ? 'var(--on-navy)' : 'var(--ink)'}>
@@ -73,10 +73,10 @@ export default function Explorer({ data }) {
               );
             })}
             <circle cx={CX} cy={CY} r={R1 - 8} fill="var(--paper)" stroke="var(--rule)" />
-            <text x={CX} y={CY - 4} textAnchor="middle" fontFamily="var(--font-display)" fontSize="20" fontWeight="600" fill="var(--ink)">
+            <text x={CX} y={CY - 4} textAnchor="middle" style={{ fontFamily: 'var(--font-display)' }} fontSize="20" fontWeight="600" fill="var(--ink)">
               {center[0]}
             </text>
-            <text x={CX} y={CY + 18} textAnchor="middle" fontFamily="var(--font-display)" fontSize="20" fontWeight="600" fill="var(--ink)">
+            <text x={CX} y={CY + 18} textAnchor="middle" style={{ fontFamily: 'var(--font-display)' }} fontSize="20" fontWeight="600" fill="var(--ink)">
               {center[1]}
             </text>
           </svg>

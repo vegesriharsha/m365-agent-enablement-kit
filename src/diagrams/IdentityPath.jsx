@@ -122,7 +122,7 @@ export default function IdentityPath({ stations, identity, status, gateLabel, ru
               <text x={tx} y={b.y + 24} textAnchor={anchor} fontSize="12.5" fontWeight="600" fill="var(--ink)">
                 {s.title}
               </text>
-              <text x={tx} y={b.y + 42} textAnchor={anchor} fontSize="11.5" fontFamily={s.mono ? 'var(--font-mono)' : undefined} fill="var(--subtle)">
+              <text x={tx} y={b.y + 42} textAnchor={anchor} fontSize="11.5" style={s.mono ? { fontFamily: 'var(--font-mono)' } : undefined} fill="var(--subtle)">
                 {s.sub}
               </text>
             </g>

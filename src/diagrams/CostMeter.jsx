@@ -54,7 +54,7 @@ export default function CostMeter({ rows, activeId, limit, max, format, limitLab
             <g key={r.id}>
               {/* monospace, so the width is the character count times the advance */}
               <rect x={vx - 4} y={vy + 2} width={text.length * 7 + 8} height={18} fill={backing} />
-              <text x={vx} y={vy + 15} fontSize="11.5" fontFamily="var(--font-mono)" fill={r.id === activeId ? 'var(--ink)' : 'var(--subtle)'}>
+              <text x={vx} y={vy + 15} fontSize="11.5" style={{ fontFamily: 'var(--font-mono)' }} fill={r.id === activeId ? 'var(--ink)' : 'var(--subtle)'}>
                 {text}
               </text>
             </g>

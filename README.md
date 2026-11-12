@@ -14,7 +14,8 @@ independent learning resource, not Microsoft documentation and not licensing adv
 | Group | Page | What you do there |
 | --- | --- | --- |
 | Start | Adoption journey | Step through six phases from preparation to scale and tick each gate's criteria |
-| Start | Glossary | Look up 40 agent, identity, governance and licensing terms, with a bank analogy |
+| Start | Glossary | Look up 40 agent, identity, governance and licensing terms, with a bank analogy; eight terms open a diagram |
+| Start | Glossary diagrams | See the three glossary diagrams on their own: agent identity, connector groups, Agent 365 layers |
 | Plan | Standards domains | See what scope, governance, identity, ownership and observability must define |
 | Plan | Capability sequencer | Tick standards and watch which of ten capabilities each of five waves can open |
 | Plan | Technology register | Filter every capability by status and move the date to see what falls due for review |
@@ -78,6 +79,7 @@ the verified dates, and add a line to the change log. `prompts/04-refresh.md` de
 
 | Date | Change |
 | --- | --- |
+| 11 Nov 2026 | Added three glossary diagrams from briefs in `docs/diagram-briefs.md` (agent identity, connector groups, Agent 365 layers) and a gallery page; SVG labels now use the monospace and display faces as intended |
 | 11 Nov 2026 | Diagrams redrawn at their measured width: labels at 11px or more, stacked layouts on phones, arrowheads for reading direction; added `npm run diagrams` to check every scenario state |
 | 11 Nov 2026 | Published to GitHub Pages; page title, one home-page blurb and this README corrected |
 | 6 Nov 2026 | Independent fact-check applied: about thirty statements reworded or re-cited, fourteen moved source URLs updated, verified date set to 6 Nov 2026 |
