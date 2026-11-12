@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Section, Insight, Segmented, Toggle, Slider, Pill, Callout, Illustrative } from '../components/ui.jsx';
 import PageShell from '../components/PageShell.jsx';
 import { fmtUSD } from '../lib/hooks.js';
+import CostMeter from '../diagrams/CostMeter.jsx';
 
 /*
  * Pattern 13, meter against a limit. Monthly list cost of each licence
@@ -49,12 +50,6 @@ export default function E5ToE7() {
     setBudget(u * PRICE.e7);
   };
 
-  const W = 680;
-  const ROW = 34;
-  const pad = { l: 190, r: 90, t: 8, b: 8 };
-  const H = pad.t + configs.length * ROW + pad.b;
-  const x = (v) => pad.l + (v / maxBar) * (W - pad.l - pad.r);
-
   let tone = 'navy';
   let text;
   if (cfg.id === 'e5') text = 'No Copilot and no Agent 365 premium. Only wave 0 opens, with the foundational registry. Copilot Chat users can still build lightweight agents, so “agents off” needs the admin settings, not just the licence.';
@@ -96,30 +91,15 @@ export default function E5ToE7() {
               {fmtUSD(total)} / {fmtUSD(budget)}
             </p>
           </div>
-          <div className="mt-3 overflow-x-auto">
-            <svg viewBox={`0 0 ${W} ${H}`} className="block w-full min-w-[560px]" role="img" aria-label={`${cfg.label} costs ${fmtUSD(total)} a month against a budget of ${fmtUSD(budget)}`}>
-              {configs.map((c, i) => {
-                const v = monthly(c);
-                const yTop = pad.t + i * ROW + 6;
-                const active = c.id === cfgId;
-                const overBudget = v > budget;
-                return (
-                  <g key={c.id}>
-                    <text x={pad.l - 10} y={yTop + 15} textAnchor="end" fontSize="12" fontWeight={active ? 700 : 500} fill={active ? 'var(--ink)' : 'var(--muted)'}>
-                      {c.label}
-                    </text>
-                    <rect x={pad.l} y={yTop} width={Math.max(2, x(v) - pad.l)} height={22} fill={active ? (overBudget ? 'var(--bad)' : 'var(--navy)') : 'var(--faint)'} stroke={active ? 'none' : 'var(--rule)'} />
-                    <text x={x(v) + 8} y={yTop + 15} fontSize="11.5" fontFamily="var(--font-mono)" fill={active ? 'var(--ink)' : 'var(--subtle)'}>
-                      {fmtUSD(v)}
-                    </text>
-                  </g>
-                );
-              })}
-              <line x1={x(budget)} x2={x(budget)} y1={pad.t} y2={H - pad.b} stroke="var(--gold)" strokeWidth="1.5" strokeDasharray="5 4" />
-              <text x={x(budget)} y={H - 1} textAnchor="middle" fontSize="10" fill="var(--gold)">
-                budget
-              </text>
-            </svg>
+          <div className="mt-3">
+            <CostMeter
+              label={`${cfg.label} costs ${fmtUSD(total)} a month against a budget of ${fmtUSD(budget)}`}
+              rows={configs.map((c) => ({ id: c.id, label: c.label, value: monthly(c) }))}
+              activeId={cfgId}
+              limit={budget}
+              max={maxBar}
+              format={(v) => fmtUSD(v)}
+            />
           </div>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <Pill tone={pct > 1 ? 'bad' : pct > 0.95 ? 'gold' : 'good'}>{pct > 1 ? 'Over the line' : pct > 0.95 ? 'At the line' : 'Under the line'}</Pill>

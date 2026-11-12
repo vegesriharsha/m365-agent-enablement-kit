@@ -78,6 +78,7 @@ the verified dates, and add a line to the change log. `prompts/04-refresh.md` de
 
 | Date | Change |
 | --- | --- |
+| 11 Nov 2026 | Diagrams redrawn at their measured width: labels at 11px or more, stacked layouts on phones, arrowheads for reading direction; added `npm run diagrams` to check every scenario state |
 | 11 Nov 2026 | Published to GitHub Pages; page title, one home-page blurb and this README corrected |
 | 6 Nov 2026 | Independent fact-check applied: about thirty statements reworded or re-cited, fourteen moved source URLs updated, verified date set to 6 Nov 2026 |
 | 6 Nov 2026 | Added four custom simulators: Agent 365 licence, identity on the path, environment strategy, E5 to E7; adapted the risk tier simulator |

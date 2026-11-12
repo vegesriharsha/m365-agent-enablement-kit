@@ -62,10 +62,11 @@ export default function Explorer({ data }) {
                     strokeWidth="1.25"
                     style={{ transition: 'fill .25s' }}
                   />
-                  <text x={w.lx} y={w.ly - 6} textAnchor="middle" fontSize="11" fontFamily="var(--font-mono)" fill={on ? 'var(--on-navy)' : 'var(--navy)'}>
+                  {/* sized so labels stay at 11px or more when the wheel shrinks to phone width */}
+                  <text x={w.lx} y={w.ly - 7} textAnchor="middle" fontSize="13" fontFamily="var(--font-mono)" fill={on ? 'var(--on-navy)' : 'var(--navy)'}>
                     {i + 1}
                   </text>
-                  <text x={w.lx} y={w.ly + 10} textAnchor="middle" fontSize="11.5" fontWeight="500" fill={on ? 'var(--on-navy)' : 'var(--ink)'}>
+                  <text x={w.lx} y={w.ly + 11} textAnchor="middle" fontSize="13.5" fontWeight="500" fill={on ? 'var(--on-navy)' : 'var(--ink)'}>
                     {ar.short}
                   </text>
                 </g>

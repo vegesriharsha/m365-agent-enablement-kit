@@ -1,4 +1,25 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+
+/**
+ * Measures an element's width so a diagram can lay itself out in real pixels.
+ * Scaling a fixed drawing to fit shrinks its labels; drawing at the measured
+ * width keeps an 11px label at 11px on every screen.
+ */
+export function useWidth(fallback = 720) {
+  const ref = useRef(null);
+  const [width, setWidth] = useState(fallback);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const measure = () => setWidth(Math.max(240, Math.floor(el.clientWidth)));
+    measure();
+    if (typeof ResizeObserver === 'undefined') return undefined;
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return [ref, width];
+}
 
 /** True when the viewer has asked the OS to reduce motion. */
 export function useReducedMotion() {

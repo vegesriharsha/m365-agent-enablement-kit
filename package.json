@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "shots": "node scripts/shoot.cjs http://localhost:4173/ shots"
+    "shots": "node scripts/shoot.cjs http://localhost:4173/ shots",
+    "diagrams": "node scripts/audit-diagrams.cjs http://localhost:4173/ shots/diagrams"
   },
   "dependencies": {
     "lucide-react": "1.59.0",
