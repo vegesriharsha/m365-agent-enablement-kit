@@ -206,7 +206,7 @@ Glossary diagrams page. The other five are briefed but not built.
 
 ## Link fixes the review turned up
 
-Five glossary entries point at a page that no longer shows the idea best. These are one-line data changes:
+Six glossary entries pointed at a page that no longer showed the idea best. Applied on 11 Nov 2026:
 
 - User authentication, Maker-provided credentials, Autonomous agent: link to the identity path page.
 - Environment routing, Managed environment: link to the environment strategy page.
